@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="sign-up-container">
-        <form class="sign-up-form" action="/signUp" onsubmit="return validatePassword()">
+        <form class="sign-up-form" action="/signup" method="post" onsubmit="return validatePassword()">
             <div class="title">
                 <p>Create an account</p>
             </div>
@@ -32,7 +32,7 @@
             </div>
                 <div id="error-message" class="error"></div>
                 <div class="login">
-                    <p>Login <a href="/Sneaker/Fontend-Sneaker/page/login/login.html" id="login">Here</a> </p>
+                    <p>Login <a href="/login" id="login">Here</a></p>
                 </div>
         </form>
     </div>
