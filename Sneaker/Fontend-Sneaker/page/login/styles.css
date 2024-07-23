@@ -16,6 +16,7 @@ body{
     width: 350px;
     height: 350px;
     text-align: center;
+    justify-content: center;
     border: 1px solid rgb(241, 241, 241);
     border-radius: 12px;
     padding: 10px 20px;
@@ -78,9 +79,9 @@ body{
     cursor: pointer;
     margin: 10px;
 }
-#loginBtn:active{
+#loginBtn:hover{
     background-color: rgb(90, 90, 90);
 }
 #signUp{
-    color: rgb(250, 7, 221);
+    color: rgb(26, 38, 197);
 }
