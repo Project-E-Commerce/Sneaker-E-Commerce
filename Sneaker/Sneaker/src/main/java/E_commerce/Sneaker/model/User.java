@@ -1,11 +1,10 @@
 package E_commerce.Sneaker.model;
 
 import jakarta.persistence.*;
-
 import java.util.Date;
 
 @Entity
-public class User {
+public class User  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id", nullable = false)
