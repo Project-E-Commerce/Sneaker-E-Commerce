@@ -2,10 +2,14 @@ package E_commerce.Sneaker.model.Role;
 
 import E_commerce.Sneaker.model.User.User;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Collection;
 
 @Entity
+@Getter
+@Setter
 @Table(name="roles")
 public class Role {
     @Id
@@ -18,27 +22,4 @@ public class Role {
     @OneToMany(mappedBy = "roles")
     Collection<User> users;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Collection<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Collection<User> users) {
-        this.users = users;
-    }
 }
