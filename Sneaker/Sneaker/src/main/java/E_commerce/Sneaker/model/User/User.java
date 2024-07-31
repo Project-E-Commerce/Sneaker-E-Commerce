@@ -1,11 +1,16 @@
 package E_commerce.Sneaker.model.User;
 
+import E_commerce.Sneaker.model.Role.Role;
 import jakarta.persistence.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.prefs.PreferenceChangeEvent;
 
 @Entity
+@Table(name="user")
 public class User  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +32,22 @@ public class User  {
         this.phone = ut.getPhone();
         this.address = ut.getAddress();
         this.gender = ut.isGender();
+    }
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(
+            name="users_roles",
+            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name ="role_id", referencedColumnName = "id")}
+    )
+    private Set<Role> roles = new HashSet<>();
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     public Long getId() {
