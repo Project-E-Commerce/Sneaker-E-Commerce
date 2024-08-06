@@ -1,0 +1,46 @@
+/*header style */
+        .vertical-line {
+            width: 2px;
+            /* Adjust the width as needed */
+
+            height: 18px;
+            /* Adjust the height as needed */
+
+            background-color: #000;
+            /* Change color if desired */
+		}
+    	header{
+    		display: flex;
+    		justify-content: flex-end;
+    		align-items: center;
+    		gap: 10px; /* Adjust the spacing between items as 				needed */
+    		padding: 0;
+            margin-right: 10px
+    	}
+
+    	.header-text{
+  			font-family: Arial;
+			font-size: 13px;
+    		font-weight: bold;
+    	}
+
+/*footer style*/
+		footer{
+        	display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            align-items: flex-start;
+            margin-left: 10px;
+            margin-right: 10px;
+            margin-bottom: 20px;
+            border-top: 2px solid black;
+            margin-top: 2px;
+        }
+        .footer-column{
+        	display: flex;
+            gap: 5px;
+            flex-direction: column;
+        }
+        .footer-logo{
+        	align-self: center;
+        }
