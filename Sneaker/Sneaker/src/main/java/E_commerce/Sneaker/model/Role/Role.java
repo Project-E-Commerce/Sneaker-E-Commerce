@@ -14,12 +14,12 @@ import java.util.Collection;
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id", nullable = false)
-    Long id;
+    @Column(name="role_id", nullable = false)
+    private Long id;
 
-    String name;
+    private String name;
 
     @OneToMany(mappedBy = "roles")
-    Collection<User> users;
+    private Collection<User> users;
 
 }
