@@ -9,7 +9,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.prefs.PreferenceChangeEvent;
 
 @Entity
 @Getter
