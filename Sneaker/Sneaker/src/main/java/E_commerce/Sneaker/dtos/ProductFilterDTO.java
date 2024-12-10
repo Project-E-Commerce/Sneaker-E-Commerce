@@ -15,4 +15,5 @@ public class ProductFilterDTO {
     private Long category_id;
     private List<String> list_size;
     private String price_sort;
+    private List<String> list_color;
 }

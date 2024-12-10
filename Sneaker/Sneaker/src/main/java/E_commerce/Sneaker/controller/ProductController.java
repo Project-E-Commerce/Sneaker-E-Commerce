@@ -12,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @CrossOrigin
@@ -92,30 +89,52 @@ public class ProductController {
         try{
             System.out.println(productFilterDTO.getCategory_id());
             List<ProductColor> listProductColor = productColorService.findAll();
+            List<ProductDTO> listDTO = getList().stream()
+                    .filter(x -> x.getCategory_id() != null &&
+                            x.getCategory_id().equals(productFilterDTO.getCategory_id()))
+                    .collect(Collectors.toList());
 
-            var listDTO  = getList().stream().filter(x -> x.getCategory_id() == productFilterDTO.getCategory_id()).collect(Collectors.toList());
-//            if (productFilterDTO.getList_color().size() > 0) {
-//                var listColorFilter = listProductColor.stream().filter(c -> productFilterDTO.getList_color().contains(c.getColor())).collect(Collectors.toList());
-//                var listIdProductColor = listColorFilter.stream().map(c -> c.getProduct_id()).collect(Collectors.toList());
-//                listDTO = listDTO.stream().filter(p -> listIdProductColor.contains(p.getProduct_id())).collect(Collectors.toList());
-//            }
-//            if (productFilterDTO.getList_size().size() > 0) {
-//                for (ProductDTO pDTO : listDTO) {
-//                    pDTO.setList_size(Arrays.stream(pDTO.getSize().split(",", 0)).collect(Collectors.toList()));
-//                }
-//                for (ProductDTO pDTO : listDTO) {
-//                    for (var size: pDTO.getList_size()) {
-//                        if (!productFilterDTO.getList_size().contains(size)) {
-//                            listDTO = listDTO.stream().filter(o -> o.getProduct_id() != pDTO.getProduct_id()).collect(Collectors.toList());
-//                        }
-//                    }
-//                }
-//            }
+
+            // Lọc theo list_color
+            if (productFilterDTO.getList_color() != null && !productFilterDTO.getList_color().isEmpty()) {
+                Set<Long> listIdProductColor = listProductColor.stream()
+                        .filter(c -> productFilterDTO.getList_color().contains(c.getColor()))
+                        .map(ProductColor::getProduct_id)
+                        .collect(Collectors.toSet());
+
+                listDTO = listDTO.stream()
+                        .filter(p -> listIdProductColor.contains(p.getProduct_id()))
+                        .collect(Collectors.toList());
+            }
+
+            // Lọc theo kích thước
+            if (productFilterDTO.getList_size() != null && !productFilterDTO.getList_size().isEmpty()) {
+                Set<String> filterSizes = new HashSet<>(productFilterDTO.getList_size());
+
+                listDTO = listDTO.stream()
+                        .filter(pDTO -> {
+                            List<String> productSizes = Arrays.asList(pDTO.getSize().split(","));
+                            return productSizes.stream().anyMatch(filterSizes::contains);
+                        })
+                        .collect(Collectors.toList());
+            }
+            // Sắp xếp theo price
+            if (productFilterDTO.getPrice_sort() != null) {
+                if (productFilterDTO.getPrice_sort().equalsIgnoreCase("asc")) {
+                    listDTO = listDTO.stream()
+                            .sorted(Comparator.comparing(ProductDTO::getPrice))
+                            .collect(Collectors.toList());
+                } else if (productFilterDTO.getPrice_sort().equalsIgnoreCase("desc")) {
+                    listDTO = listDTO.stream()
+                            .sorted(Comparator.comparing(ProductDTO::getPrice).reversed())
+                            .collect(Collectors.toList());
+                }
+            }
 
             return listDTO;
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return null;
+            System.out.println( "Error filtering products: " + e.getMessage());
+            return Collections.emptyList();
         }
     }
 }
