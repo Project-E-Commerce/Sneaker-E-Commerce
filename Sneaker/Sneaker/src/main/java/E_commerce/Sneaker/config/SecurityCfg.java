@@ -7,7 +7,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import E_commerce.Sneaker.Service.User.JpaUserDetailsService;
+import E_commerce.Sneaker.Service.User.UserService;
 
 @Configuration
 @EnableWebSecurity
@@ -15,7 +15,6 @@ public class SecurityCfg {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         return http
-                .userDetailsService(jpaUserDetailsService())
                 .authorizeHttpRequests(req -> req
                 //let everyone access homepage
                         .requestMatchers("/").permitAll()
@@ -36,15 +35,4 @@ public class SecurityCfg {
                 .csrf(c -> c.disable())
                 .build();
     }
-
-    @Bean
-    PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    JpaUserDetailsService jpaUserDetailsService(){
-        return new JpaUserDetailsService();
-    }
-
 }

@@ -1,12 +1,38 @@
 package E_commerce.Sneaker.controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import E_commerce.Sneaker.Service.Authentication.AuthenticationService;
+import E_commerce.Sneaker.dtos.request.IntrospectRequest;
+import E_commerce.Sneaker.dtos.response.ApiResponse;
+import E_commerce.Sneaker.dtos.request.AuthenticationRequest;
+import E_commerce.Sneaker.dtos.response.AuthenticationResponse;
+import E_commerce.Sneaker.dtos.response.IntrospectResponse;
+import com.nimbusds.jose.JOSEException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+import java.text.ParseException;
+
+@RestController
+@RequestMapping("/auth")
 public class AuthenticationController {
-    @GetMapping(value="/login")
-    public String login(){
-        return "login";
+
+    @Autowired
+    private AuthenticationService authenticationService;
+
+    @PostMapping("/login")
+    ApiResponse<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request){
+        var authResult = authenticationService.authenticateUser(request);
+        return ApiResponse.<AuthenticationResponse>builder()
+                .result(authResult)
+                .build();
+    }
+
+    @PostMapping("/introspect")
+    ApiResponse<IntrospectResponse> authenticate(@RequestBody IntrospectRequest request)
+            throws ParseException, JOSEException {
+        var authResult = authenticationService.introspect(request);
+        return ApiResponse.<IntrospectResponse>builder()
+                .result(authResult)
+                .build();
     }
 }

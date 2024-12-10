@@ -1,44 +1,112 @@
 package E_commerce.Sneaker.controller;
 
+import E_commerce.Sneaker.Service.User.UserService;
+import E_commerce.Sneaker.dtos.response.ApiResponse;
+import E_commerce.Sneaker.dtos.UserDTO;
+import E_commerce.Sneaker.dtos.response.UserResponseDTO;
 import E_commerce.Sneaker.model.User.User;
-import E_commerce.Sneaker.model.User.UserTemplate;
-import E_commerce.Sneaker.repository.UserRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 
-@Controller
-@RequestMapping(value="/")
+
+@RestController
+@RequestMapping("/users")
 public class UserController {
     @Autowired
-    UserRepository userRepository;
+    private UserService userService;
 
-    @GetMapping(value="/signup")
-    public String signup(Model model){
-        model.addAttribute("user", new UserTemplate());
-        return "signup";
+
+    @PostMapping
+    ApiResponse<User> createUser(@RequestBody @Valid UserDTO request){
+        ApiResponse<User> apiResponse = new ApiResponse<>();
+
+        apiResponse.setResult(userService.createUser(request));
+
+        return apiResponse;
     }
 
-    @PostMapping("/signup")
-    public String signupHandle(Model model, PasswordEncoder encoder,
-                               @Valid UserTemplate ut,
-                               BindingResult result){
-        if(result.hasErrors()){
-            model.addAttribute("user", ut);
-            return "signup";
-        }else{
-            model.addAttribute("user", new UserTemplate());
-            model.addAttribute("sucess", true);
-            userRepository.save(new User(ut, encoder));
-            //chua hieu loi gi
-            return "signup";
-        }
+    @GetMapping
+    List<User> getUsers(){
+        return userService.getUsers();
     }
 
+    @GetMapping("/{userId}")
+    UserResponseDTO getUser(@PathVariable("userId") Long userId){
+        return userService.getUser(userId);
+    }
+
+    @PutMapping("/update/{userId}")
+    UserResponseDTO updateUser(@PathVariable Long userId,
+                    @RequestBody UserDTO request){
+        return userService.updateUser(userId, request);
+    }
+
+    @DeleteMapping("/{userId}")
+    String deleteUser(@PathVariable("userId") Long userId){
+        userService.deleteUser(userId);
+        return "user has been deleted";
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
