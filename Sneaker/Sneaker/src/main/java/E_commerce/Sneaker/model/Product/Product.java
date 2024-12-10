@@ -30,10 +30,6 @@ public class Product {
     private Long category_id;
     @Column(name ="price" )
     private double price;
-    @Column(name ="desc")
-    private String desc;
-    @Column(name = "image")
-    private String image;
     @Column(name = "created_at")
     @CreationTimestamp
     private Date created_at;
