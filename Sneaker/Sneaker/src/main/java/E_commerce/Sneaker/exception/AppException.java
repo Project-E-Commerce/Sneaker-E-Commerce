@@ -4,8 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * This class is for
- *
+ This class extends RuntimeException and allows for centralized error code management,
+ * providing a consistent way to throw and handle application-specific exceptions.
  */
 
 @Getter
