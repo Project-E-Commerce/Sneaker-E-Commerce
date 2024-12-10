@@ -31,6 +31,8 @@ public class Order {
             inverseJoinColumns = @JoinColumn(name = "product_id")
     )
     private List<Product> product;
+    @Column(name = "user_id")
+    private Long userId;
     @Column(name = "number", nullable = false)
     private int number;
     @Column(name = "order_date", nullable = false)
@@ -38,4 +40,5 @@ public class Order {
     private Date order_date;
     @Column(name = "note")
     private String note;
+
 }
