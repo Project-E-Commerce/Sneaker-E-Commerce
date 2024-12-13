@@ -6,6 +6,7 @@ import E_commerce.Sneaker.dtos.response.AuthenticationResponse;
 import E_commerce.Sneaker.dtos.response.IntrospectResponse;
 import E_commerce.Sneaker.exception.AppException;
 import E_commerce.Sneaker.exception.ErrorCode;
+import E_commerce.Sneaker.model.User.User;
 import E_commerce.Sneaker.repository.UserRepository;
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.MACSigner;
@@ -20,11 +21,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.text.ParseException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.Collection;
 import java.util.Date;
+import java.util.StringJoiner;
 
 /**
  * This class contains methods for authenticating when user logging in
@@ -47,7 +51,7 @@ public class AuthenticationService {
         boolean authenticated =  passwordEncoder.matches(request.getPassword(), user.getPassword());
 
         if(!authenticated) throw new AppException(ErrorCode.UNAUTHENTICATED);
-        var token = generateToken(request.getUsername());
+        var token = generateToken(user);
 
         return AuthenticationResponse.builder()
                 .token(token)
@@ -55,17 +59,17 @@ public class AuthenticationService {
                 .build();
     }
 
-    private String generateToken(String username){
+    private String generateToken(User user){
         JWSHeader jwsHeader = new JWSHeader(JWSAlgorithm.HS512);
 
         JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder()
-                .subject(username)
+                .subject(user.getUsername())
                 .issuer("admin")
                 .issueTime(new Date())
                 .expirationTime(new Date(
                         Instant.now().plus(12, ChronoUnit.HOURS).toEpochMilli()
                 ))
-                .claim("customClaim", "Custom")
+                .claim("scope", buildScope(user))
                 .build();
 
         Payload payload = new Payload(jwtClaimsSet.toJSONObject());
@@ -97,5 +101,13 @@ public class AuthenticationService {
                 .valid(verified && expiredDate.after(new Date()))
                 .build();
 
+    }
+
+    private String buildScope(User user){
+        StringJoiner stringJoiner = new StringJoiner(" ");
+        /*if(CollectionUtils.isEmpty(user.getRoles())){
+            user.getRoles().forEach(s -> stringJoiner.add(s));
+        }*/
+        return stringJoiner.toString();
     }
 }

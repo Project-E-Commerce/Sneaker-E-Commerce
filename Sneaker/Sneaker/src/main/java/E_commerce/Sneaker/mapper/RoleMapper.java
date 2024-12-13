@@ -1,29 +1,22 @@
-//package E_commerce.Sneaker.mapper;
-//
-//import E_commerce.Sneaker.dtos.RoleDTO;
-//import E_commerce.Sneaker.model.Role.Role;
-//
-///**
-// * this class allows the data exchange from Role class and RoleDTO class
-// */
-//public class RoleMapper {
-//    private static RoleMapper INSTANCE;
-//
-//    public static RoleMapper getInstance(){
-//        if(INSTANCE == null){
-//            INSTANCE = new RoleMapper();
-//        }
-//        return INSTANCE;
-//    }
-//    public Role toEntity(RoleDTO roleDTO){
-//        Role role = new Role();
-//        role.setName(roleDTO.getName());
-//        return role;
-//    }
-//    public RoleDTO toDTO(Role role){
-//        RoleDTO dto = new RoleDTO();
-//        dto.setName(role.getName());
-//        dto.setId(role.getId());
-//        return dto;
-//    }
-//}
+package E_commerce.Sneaker.mapper;
+
+import E_commerce.Sneaker.dtos.RoleDTO;
+import E_commerce.Sneaker.dtos.request.RoleRequest;
+import E_commerce.Sneaker.dtos.response.RoleResponse;
+import E_commerce.Sneaker.model.Role.Role;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+
+/**
+ * this class allows the data exchange from Role class and RoleDTO classes
+ */
+
+@Mapper(componentModel = "spring")
+public interface RoleMapper {
+
+    @Mapping(target = "permissions", ignore = true)
+    Role toRole(RoleRequest request);
+
+    RoleResponse toRoleResponse(Role role);
+
+}

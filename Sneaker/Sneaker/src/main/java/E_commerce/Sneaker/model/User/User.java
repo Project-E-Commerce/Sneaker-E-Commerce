@@ -1,9 +1,9 @@
 package E_commerce.Sneaker.model.User;
 
 
+import E_commerce.Sneaker.model.Role.Role;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Date;
@@ -13,6 +13,9 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name="user")
 public class User  {
     @Id
@@ -27,8 +30,6 @@ public class User  {
     private String address;
     private boolean gender;
 
-    public User(){
-    }
-
-
+    @ManyToMany
+    Set<Role> roles;
 }

@@ -13,14 +13,11 @@ import java.util.Set;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name="roles")
-public class Role {
+public class Permission {
     @Id
-    private String role_name;
+    private String permission_name;
 
     private String description;
 
-    @ManyToMany
-    Set<Permission> permissions;
 
 }
