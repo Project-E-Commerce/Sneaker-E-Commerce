@@ -44,8 +44,10 @@ public class UserController {
     @GetMapping
     ApiResponse<List<User>> getUsers(){
         var authentication = SecurityContextHolder.getContext().getAuthentication();
+
         log.info("Username: {}", authentication.getName());
         authentication.getAuthorities().forEach(grantedAuthority -> log.info(grantedAuthority.getAuthority()));
+
         return ApiResponse.<List<User>>builder()
                 .result(userService.getUsers())
                 .build();

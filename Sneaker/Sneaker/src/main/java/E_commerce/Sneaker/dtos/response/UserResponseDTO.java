@@ -19,5 +19,5 @@ public class UserResponseDTO {
     private String phone;
     private String address;
     private boolean gender;
-    Set<String> roles;
+    Set<RoleResponse> roles;
 }

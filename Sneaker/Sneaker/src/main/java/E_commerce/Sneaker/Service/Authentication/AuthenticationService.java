@@ -2,11 +2,14 @@ package E_commerce.Sneaker.Service.Authentication;
 
 import E_commerce.Sneaker.dtos.request.AuthenticationRequest;
 import E_commerce.Sneaker.dtos.request.IntrospectRequest;
+import E_commerce.Sneaker.dtos.request.LogoutRequest;
 import E_commerce.Sneaker.dtos.response.AuthenticationResponse;
 import E_commerce.Sneaker.dtos.response.IntrospectResponse;
 import E_commerce.Sneaker.exception.AppException;
 import E_commerce.Sneaker.exception.ErrorCode;
+import E_commerce.Sneaker.model.Token.InvalidatedToken;
 import E_commerce.Sneaker.model.User.User;
+import E_commerce.Sneaker.repository.InvalidatedTokenRepository;
 import E_commerce.Sneaker.repository.UserRepository;
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.MACSigner;
@@ -29,6 +32,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Collection;
 import java.util.Date;
 import java.util.StringJoiner;
+import java.util.UUID;
 
 /**
  * This class contains methods for authenticating when user logging in
@@ -38,6 +42,9 @@ public class AuthenticationService {
     private static final Logger log = LoggerFactory.getLogger(AuthenticationService.class);
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private InvalidatedTokenRepository invalidatedTokenRepository;
 
     @NonFinal
     @Value("${jwt.signerKey}")
@@ -59,6 +66,23 @@ public class AuthenticationService {
                 .build();
     }
 
+    public void logout(LogoutRequest request)
+            throws ParseException, JOSEException {
+        var signToken = verifyToken(request.getToken());
+
+        String jit = signToken.getJWTClaimsSet().getJWTID(); //jit = JwtIDToken
+        Date expireDate = signToken.getJWTClaimsSet().getExpirationTime();
+
+        InvalidatedToken invalidatedToken = InvalidatedToken.builder()
+                .id(jit)
+                .expiryTime(expireDate)
+                .build();
+
+        invalidatedTokenRepository.save(invalidatedToken);
+
+    }
+
+
     private String generateToken(User user){
         JWSHeader jwsHeader = new JWSHeader(JWSAlgorithm.HS512);
 
@@ -69,6 +93,7 @@ public class AuthenticationService {
                 .expirationTime(new Date(
                         Instant.now().plus(12, ChronoUnit.HOURS).toEpochMilli()
                 ))
+                .jwtID(UUID.randomUUID().toString())
                 .claim("scope", buildScope(user))
                 .build();
 
@@ -85,9 +110,8 @@ public class AuthenticationService {
         }
     }
 
-    public IntrospectResponse introspect(IntrospectRequest request)
-            throws JOSEException, ParseException {
-        var token = request.getToken();
+    private SignedJWT verifyToken(String token)
+            throws ParseException, JOSEException{
 
         JWSVerifier verifier = new MACVerifier(SIGNER_KEY);
 
@@ -97,17 +121,44 @@ public class AuthenticationService {
 
         var verified = signedJWT.verify(verifier);
 
+        if(!(verified && expiredDate.after(new Date()))){
+            throw new AppException(ErrorCode.UNAUTHENTICATED);
+        }
+
+        if(invalidatedTokenRepository.existsById(signedJWT.getJWTClaimsSet().getJWTID())){
+            throw new AppException(ErrorCode.UNAUTHENTICATED);
+        }
+
+        return signedJWT;
+    }
+
+    public IntrospectResponse introspect(IntrospectRequest request)
+            throws JOSEException, ParseException {
+        var token = request.getToken();
+        boolean isValid = true;
+        try{
+            verifyToken(token);
+        }catch (AppException e){
+            isValid = false;
+        }
+
         return IntrospectResponse.builder()
-                .valid(verified && expiredDate.after(new Date()))
+                .valid(isValid)
                 .build();
 
     }
 
     private String buildScope(User user){
         StringJoiner stringJoiner = new StringJoiner(" ");
-        /*if(CollectionUtils.isEmpty(user.getRoles())){
-            user.getRoles().forEach(s -> stringJoiner.add(s));
-        }*/
+
+        if(CollectionUtils.isEmpty(user.getRoles())){
+            user.getRoles().forEach(role -> {
+                stringJoiner.add("ROLE_" + role.getRole_name());
+                if(CollectionUtils.isEmpty(role.getPermissions())){
+                    role.getPermissions().forEach(permission -> stringJoiner.add(permission.getPermission_name()));
+                }
+            });
+        }
         return stringJoiner.toString();
     }
 }
