@@ -17,6 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserDTO {
+        private Long userId;
         @Size(min = 6, message = "INVALID_USERNAME") // the message must be String
         private String username;
 
