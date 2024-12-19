@@ -3,6 +3,7 @@ package E_commerce.Sneaker.controller;
 import E_commerce.Sneaker.Service.Authentication.AuthenticationService;
 import E_commerce.Sneaker.dtos.request.IntrospectRequest;
 import E_commerce.Sneaker.dtos.request.LogoutRequest;
+import E_commerce.Sneaker.dtos.request.RefreshTokenRequest;
 import E_commerce.Sneaker.dtos.response.ApiResponse;
 import E_commerce.Sneaker.dtos.request.AuthenticationRequest;
 import E_commerce.Sneaker.dtos.response.AuthenticationResponse;
@@ -21,23 +22,33 @@ public class AuthenticationController {
     private AuthenticationService authenticationService;
 
     @PostMapping("/login")
-    ApiResponse<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request){
+    private ApiResponse<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request){
         var authResult = authenticationService.authenticateUser(request);
         return ApiResponse.<AuthenticationResponse>builder()
                 .result(authResult)
                 .build();
     }
 
+
     @PostMapping("/logout")
-    ApiResponse<Void> logout(@RequestBody LogoutRequest request)
+    private ApiResponse<Void> logout(@RequestBody LogoutRequest request)
             throws ParseException, JOSEException{
         authenticationService.logout(request);
         return ApiResponse.<Void>builder()
                 .build();
     }
 
+    @PostMapping("/refresh")
+    private ApiResponse<AuthenticationResponse> refreshToken(@RequestBody RefreshTokenRequest request)
+            throws ParseException, JOSEException {
+        var authResult = authenticationService.refreshToken(request);
+        return ApiResponse.<AuthenticationResponse>builder()
+                .result(authResult)
+                .build();
+    }
+
     @PostMapping("/introspect")
-    ApiResponse<IntrospectResponse> authenticate(@RequestBody IntrospectRequest request)
+    private ApiResponse<IntrospectResponse> authenticate(@RequestBody IntrospectRequest request)
             throws ParseException, JOSEException {
         var authResult = authenticationService.introspect(request);
         return ApiResponse.<IntrospectResponse>builder()

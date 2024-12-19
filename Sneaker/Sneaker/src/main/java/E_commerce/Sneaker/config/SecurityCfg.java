@@ -19,7 +19,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityCfg {
 
     private final String[] PUBLIC_ENDPOINTS = {
-            "/", "/auth/login", "/auth/introspect", "/auth/logout"
+            "/", "/auth/login", "/auth/introspect", "/auth/logout", "/auth/refresh"
     } ;
 
     /*@Value("${jwt.signerKey}")
