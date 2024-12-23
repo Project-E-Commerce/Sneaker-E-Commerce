@@ -12,6 +12,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -59,6 +62,23 @@ public class SecurityCfg {
                 );
 
         return httpSecurity.build();
+    }
+
+    @Bean
+    public CorsFilter corsFilter(){
+
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+
+        corsConfiguration.addAllowedOrigin("http://localhost:");
+        corsConfiguration.setAllowCredentials(true);
+        corsConfiguration.addAllowedMethod("*"); //allowing all the methods
+        corsConfiguration.addAllowedHeader("*"); //allowing all the headers
+
+        UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
+        urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration); //applying to all the endpoints, using all the cors configuration added
+
+        return new CorsFilter(urlBasedCorsConfigurationSource);
+
     }
 
     @Bean

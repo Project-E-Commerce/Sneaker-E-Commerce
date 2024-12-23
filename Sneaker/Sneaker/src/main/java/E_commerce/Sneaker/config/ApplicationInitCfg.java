@@ -32,7 +32,7 @@ public class ApplicationInitCfg {
     static final String ADMIN_USERNAME = "admin";
 
     @NonFinal
-    static final String ADMIN_PASSWORD = "123admin456"
+    static final String ADMIN_PASSWORD = "123admin456";
 
     @Bean
     /*@ConditionalOnProperty(
@@ -40,9 +40,9 @@ public class ApplicationInitCfg {
             value = "datasource.driverClassName",
             havingValue = ""
     )*/
-    ApplicationRunner applicationRunner(UserRepository userRepository, RoleRepository roleRepository){
+    ApplicationRunner applicationRunner(UserRepository userRepository, RoleRepository roleRepository) {
         return args -> {
-            if(userRepository.findByUsername(ADMIN_USERNAME).isEmpty()){
+            if (userRepository.findByUsername(ADMIN_USERNAME).isEmpty()) {
                 roleRepository.save(Role.builder()
                         .role_name(PredefinedRole.USER_ROLE)
                         .description("User role")
