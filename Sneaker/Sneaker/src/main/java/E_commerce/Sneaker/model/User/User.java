@@ -22,6 +22,8 @@ public class User  {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="user_id", nullable = false)
     private Long userId;
+
+    @Column(name="username", unique = true, nullable = false, columnDefinition = "VARCHAR(255) COLLATE utf8mb4_unicode_ci")
     private String username;
     private String password;
     private String email;

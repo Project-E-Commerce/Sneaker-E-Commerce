@@ -15,6 +15,8 @@ import com.nimbusds.jose.proc.SecurityContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -78,6 +80,13 @@ public class UserService {
     @PreAuthorize("hasRole('ADMIN')")
     public List<User> getUsers(){
         return userRepository.findAll();
+    }
+
+    //this method return a paginated list of users
+    @PreAuthorize("hasRole('ADMIN')")
+    public Page<User> getUsersInPage(int pageNumber, int pageSize){
+        PageRequest firstPageRequest = PageRequest.of(pageNumber, pageSize);
+        return userRepository.findAll(firstPageRequest);
     }
 
     @PostAuthorize("returnObject .username == authentication.name")

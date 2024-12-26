@@ -21,8 +21,19 @@ public class AuthenticationController {
     @Autowired
     private AuthenticationService authenticationService;
 
-    @PostMapping("/login")
+    /*@PostMapping("/login")
     private ApiResponse<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request){
+        var authResult = authenticationService.authenticateUser(request);
+        return ApiResponse.<AuthenticationResponse>builder()
+                .result(authResult)
+                .build();
+    }*/
+
+    @PostMapping("/login")
+    private ApiResponse<AuthenticationResponse> authenticate(@RequestParam String username,
+                                                                 @RequestParam String password){
+
+        AuthenticationRequest request = new AuthenticationRequest(username, password);
         var authResult = authenticationService.authenticateUser(request);
         return ApiResponse.<AuthenticationResponse>builder()
                 .result(authResult)

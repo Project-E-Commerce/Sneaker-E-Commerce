@@ -69,7 +69,7 @@ public class SecurityCfg {
 
         CorsConfiguration corsConfiguration = new CorsConfiguration();
 
-        corsConfiguration.addAllowedOrigin("http://localhost:");
+        corsConfiguration.addAllowedOrigin("http://localhost:3000"); //front-end api
         corsConfiguration.setAllowCredentials(true);
         corsConfiguration.addAllowedMethod("*"); //allowing all the methods
         corsConfiguration.addAllowedHeader("*"); //allowing all the headers
