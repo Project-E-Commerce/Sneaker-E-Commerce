@@ -9,17 +9,17 @@
 </head>
 <body>
     <div class="login-container">
-        <form class="login-form" action="/login" method="post">
+        <form class="login-form" id="loginForm">
             <div class="login">
                 <h2>Login</h2>
             </div>
             <div class="form-group">
                 <i class="fa fa-user" style="color: #222d3f;"></i>
-                <input type="text" id="username" name="" placeholder="Username" required>
+                <input type="text" id="username" name="username" placeholder="Username" required>
             </div>
             <div class="form-group">
                 <i class="fa fa-lock"  style="color: #222d3f;"></i> 
-                <input type="password" id="password" name="" placeholder="Password" required>
+                <input type="password" id="password" name="password" placeholder="Password" required>
             </div>
             <div class="forgot">
                 <a href="#" id="forgotText">Forgot password?</a>
@@ -30,5 +30,67 @@
             </div>
         </form>
     </div>
+
+    <script>
+        const errorDisplay = document.getElementById('errorMessage');
+
+        function showError(message){
+            errorDisplay.textContent = message;
+            errorDisplay.style.display = 'block';
+        }
+
+        function clearError(){
+            errorDisplay.style.display = 'none';
+            errorDisplay.textContent = '';
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            clearError();
+
+            const credentials = {
+                username: document.getElementById('username').value,
+                password: document.getElementById('password').value
+            };
+
+            try{
+                const response = await fetch('/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(credentials)
+                });
+
+                const data = await response.json();
+
+                if(!response.ok){
+                    //Handle specific error codes
+                    switch(data.code){
+                        case 102: //user not found
+                        case 103: //invalid username
+                        case 104: //invalid password
+                        case 105: //unauthenticated
+                            showError(data.message);
+                            break;
+                        default:
+                            showError('An unexpected error has occurred. Please try again later.');
+                    }
+                    return;
+                }
+
+                if(data.result){
+                    //Store token if needed
+                    localStorage.setItem('token', data.result.token);
+
+                    //Redirect to homepage
+                    window.location.href='/homepage'
+                }
+            }catch(error){
+                console.error('Login error', error);
+                alert('Login failed. Please try again');
+            }
+        });
+    </script>
 </body>
 </html>
