@@ -22,7 +22,8 @@ import org.springframework.web.filter.CorsFilter;
 public class SecurityCfg {
 
     private final String[] PUBLIC_ENDPOINTS = {
-            "/", "/auth/login", "/auth/introspect", "/auth/logout", "/auth/refresh"
+            "/", "/auth/user/login", "/auth/user/introspect", "/auth/user/logout", "/auth/user/refresh",
+            "auth/ADM/login", "/auth/ADM/introspect", "/auth/ADM/logout", "/auth/ADM/refresh"
     } ;
 
     /*@Value("${jwt.signerKey}")
@@ -39,6 +40,8 @@ public class SecurityCfg {
                 .authorizeHttpRequests(req ->
                         req
                         .requestMatchers(PUBLIC_ENDPOINTS).permitAll()
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/user/**").hasRole("USER")
                         .anyRequest().authenticated()
                 )
                 /*.formLogin(formLogin -> formLogin

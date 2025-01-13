@@ -59,6 +59,7 @@ public class AuthenticationService {
     @Value("${jwt.refreshable-duration}")
     protected Long REFRESHABLE_DURATION;
 
+    @Deprecated
     public AuthenticationResponse authenticateUser(AuthenticationRequest request){
         var user = userRepository.findByUsername(request.getUsername())
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
@@ -67,6 +68,40 @@ public class AuthenticationService {
         boolean authenticated =  passwordEncoder.matches(request.getPassword(), user.getPassword());
 
         if(!authenticated) throw new AppException(ErrorCode.UNAUTHENTICATED);
+        var token = generateToken(user);
+
+        return AuthenticationResponse.builder()
+                .token(token)
+                .isAuthenticated(true)
+                .build();
+    }
+
+    /**
+     * Authenticate user by role when login
+     * @param request
+     * @param requiredRoleName
+     * @return AuthenticationResponse
+     */
+    public AuthenticationResponse authenticateUserByRole(AuthenticationRequest request, String requiredRoleName){
+        // find the user
+        var user = userRepository.findByUsername(request.getUsername())
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+
+        // verify password
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
+        boolean authenticated = passwordEncoder.matches(request.getPassword(), user.getPassword());
+        if(!authenticated){
+            throw new AppException(ErrorCode.UNAUTHENTICATED);
+        }
+
+        //check if user has the required role
+        boolean hasRole = user.getRoles().stream()
+                .anyMatch(role -> role.getRole_name().equals(requiredRoleName));
+
+        if(!hasRole){
+            throw new AppException(ErrorCode.UNAUTHORIZED_ACCESS);
+        }
+
         var token = generateToken(user);
 
         return AuthenticationResponse.builder()
@@ -96,7 +131,11 @@ public class AuthenticationService {
         }
     }
 
-
+    /**
+     * Generate jason web token based on user entity's information
+     * @param user
+     * @return String
+     */
     private String generateToken(User user){
         JWSHeader jwsHeader = new JWSHeader(JWSAlgorithm.HS512);
 
@@ -197,10 +236,10 @@ public class AuthenticationService {
     private String buildScope(User user){
         StringJoiner stringJoiner = new StringJoiner(" ");
 
-        if(CollectionUtils.isEmpty(user.getRoles())){
+        if(!CollectionUtils.isEmpty(user.getRoles())){
             user.getRoles().forEach(role -> {
                 stringJoiner.add("ROLE_" + role.getRole_name());
-                if(CollectionUtils.isEmpty(role.getPermissions())){
+                if(!CollectionUtils.isEmpty(role.getPermissions())){
                     role.getPermissions().forEach(permission -> stringJoiner.add(permission.getPermission_name()));
                 }
             });
