@@ -3,7 +3,7 @@ const path = require('path');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../views', 'login','login.html'));
+    res.sendFile(path.join(__dirname, '../views', 'userLogin','userLogin.html'));
 });
 router.post('/', (req, res) => {
     const { username, password } = req.body;
