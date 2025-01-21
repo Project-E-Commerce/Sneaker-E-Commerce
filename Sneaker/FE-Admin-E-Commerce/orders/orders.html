@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="sidebar-container"></div>
+    <div id="header-container"></div>
+
+    <div class="content">
+        <!-- Nội dung của trang Orders -->
+        <h2>Orders Management</h2>
+    </div>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+    // Load Sidebar
+    fetch("/components/sidebar.html")
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("sidebar-container").innerHTML = data;
+        });
+
+    // Load Header
+    fetch("/components/header.html")
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("header-container").innerHTML = data;
+        });
+
+   
+});
+    </script>
+</body>
+</html>

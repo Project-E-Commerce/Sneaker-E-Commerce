@@ -1,0 +1,111 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<div class="main-content">
+    <header>
+        <div class="header-content">
+            <div class="search-and-user">
+                <input type="text" placeholder="Search..." class="search-bar">
+                <div class="user-profile">
+                    <i class="fas fa-user-circle"></i>
+                    <div class="user-menu">
+                        <ul>
+                            <li><a href="#profile">Profile</a></li>
+                            <li><a href="#settings">Settings</a></li>
+                            <li><a href="#logout">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+</div>
+<style>
+    header {
+    width: calc(100% - 250px); 
+    margin-left: 250px; 
+    background-color: #95EEF3;
+    height: 60px;
+    border-bottom: 1px solid black;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    box-sizing: border-box;
+    
+}
+
+.header-content {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;   
+}
+
+.search-and-user {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    width: 100%;
+    justify-content: center;
+}
+
+.search-bar {
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    margin-right: 20px;
+    flex: 1;
+    max-width: 300px;
+}
+
+.user-profile {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%); 
+    cursor: pointer;
+}
+
+.user-profile i {
+    font-size: 28px;
+    color: #333;
+}
+
+.user-menu {
+    display: none;
+    position: absolute;
+    top: 35px;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 150px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.user-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.user-menu ul li {
+    padding: 10px;
+}
+
+.user-menu ul li a {
+    text-decoration: none;
+    color: #333;
+}
+
+.user-menu ul li a:hover {
+    background-color: #f4f4f4;
+}
+
+.user-profile:hover .user-menu {
+    display: block;
+}
+
+</style>
+

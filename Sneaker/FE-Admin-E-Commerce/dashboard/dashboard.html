@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+</head>
+<body>
+    <div id="sidebar-container"></div>
+    <div id="header-container"></div>
+    <div class="dashboard">
+        <div class="card">
+            <h3>Total Products Sold</h3>
+            <p>2,350</p>
+        </div>
+        <div class="card">
+            <h3>Best Selling Product</h3>
+            <p>Product A</p>
+        </div>
+        <div class="card">
+            <h3>Total Users</h3>
+            <p>1,250</p>
+        </div>
+        <div class="card">
+            <h3>Total Products</h3>
+            <p>300</p>
+        </div>
+        <div class="card">
+            <h3>Total Orders</h3>
+            <p>150</p>
+        </div>
+        <div class="card">
+            <h3>Total Revenue</h3>
+            <p>$12,500</p>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+    // Load Sidebar
+    fetch("/components/sidebar.html")
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("sidebar-container").innerHTML = data;
+        });
+
+    // Load Header
+    fetch("/components/header.html")
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("header-container").innerHTML = data;
+        });
+
+   
+});
+    </script>
+</body>
+</html>
