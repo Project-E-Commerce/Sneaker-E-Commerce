@@ -29,8 +29,11 @@ public class OrderServiceImpl implements OrderService{
         Order existingOrder = getOrderById(id);
         existingOrder.setName(order.getName());
         existingOrder.setNumber(order.getNumber());
-        existingOrder.setOrder_date(order.getOrder_date());
-        existingOrder.setName(order.getNote());
+        existingOrder.setUpdate_at(order.getUpdate_at());
+        existingOrder.setPhone(order.getPhone());
+        existingOrder.setAddress(order.getAddress());
+        existingOrder.setAddress_from(order.getAddress_from());
+        existingOrder.setAddress_to(order.getAddress_to());
         return orderRepository.save(existingOrder);
     }
 
