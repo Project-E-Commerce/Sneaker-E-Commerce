@@ -31,6 +31,7 @@ app.set('view engine', 'handlebars');
 app.set('views', './views');
 app.get('/', (req, res) => {
     res.render('homepage/homepage');
+    res.render('cart/cart');
 });
 
 app.use('/adminLogin', adminLoginRoutes);

@@ -6,6 +6,8 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href=
+            https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css>
     <title>LAYOUT</title>
 </head>
 <body>
@@ -17,6 +19,29 @@
         </div>
         <a class="header-text">Help</a>
     </header>
+    
+    <!--navigation bar-->
+    <div class="nav">
+        <img src="" alt="logo-image" class="logo-image">
+        <h1 class="brand-name">BS</h1>
+        <a class="nav-text"> Products </a>
+        <a class="nav-text"> Categories </a>
+        <a class="nav-text"> Order </a>
+        <div class="search-icons-container">
+            <div class="search-container">
+                <input type="text" placeholder="Search" class="search-bar"/>
+                <div>
+                    <button id="nav-button-search" class="fa-solid fa-search icon"></button>
+                </div>
+            </div>
+            <div>
+                <button id="nav-button-cart" class="fa-solid fa-cart-shopping"></button>
+            </div>
+            <div>
+                <button id="nav-button-user" class="fa fa-user icon" name="nav-button-user"></button>
+            </div>
+        </div>
+    </div>
 
     <div class="content">
         {{{body}}}
