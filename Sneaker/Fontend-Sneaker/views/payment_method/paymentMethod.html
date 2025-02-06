@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <!-- <link rel="stylesheet" href=
+            "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"> -->
+    <title>Payment Method</title>
+</head>
+
+<body>
+    <!-- go back button -->
+    <div id="goBackBtn">
+        <button class="fa-solid fa-chevron-left">
+
+        </button>
+        <p id="backBtnText">
+            Continue Shopping
+        </p>
+    </div>
+
+    <!-- content section -->
+    <div class="main-container">
+
+        <!-- payment method section -->
+        <div class="payment-method-container">
+            <p>Payment Method</p>
+            <p>Choose a payment option</p>
+            <div class="radio-btn">
+                <input type="radio" id="cash" name="method" value="cash">
+                <label for="cash">Cash on delivery. </label>
+            </div>
+            
+            <div class="radio-btn">
+                <input type="radio" id="online" name="method" value="online">
+                <label for="online">Online payment method. </label>
+            </div>
+            
+        </div>
+
+        <!-- summary section -->
+        <div class="summary-container">
+            <div class="summary-info">
+                <p>Summary</p>
+
+                <div class="summary-detail">
+                    <label for="subtotalValue">Subtotal</label>
+                    <p id="subtotalValue">Subtotal value goes here</p>
+                </div>
+
+                <div class="summary-detail">
+                    <label for="priceValue">Shipping Price</label>
+                    <p id="priceValue">Price value goes here</p>
+                </div>
+
+                <div class="summary-detail">
+                    <label for="totalValue">Total</label>
+                    <p id="totalValue">Total value goes here</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,82 @@
+    /* go back button */
+    #goBackBtn{
+        margin-left: 100px;
+        
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: fit-content;
+    }
+
+    #goBackBtn button{
+    background: none;
+    border: 1px solid black;
+    border-radius: 6px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 24px;
+    }   
+
+    #backBtnText{
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        font-size: 20px;
+    }
+
+    /* content section */
+    .main-container{
+        display: flex;
+        justify-content: space-between;
+        gap: 30px;
+        padding: 20px;
+        position: relative;
+        margin-left: 150px;
+    }
+    
+    .payment-method-container p,
+    .payment-method-container label {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 16px;
+    }
+
+    .payment-method-container p:first-child{
+        font-size: 24px;
+        margin-bottom: 20px;
+        font-weight: bold;
+    }
+    
+    .radio-btn{
+        margin-bottom: 20px;
+    }
+
+    /* summary section */
+    .summary-container{
+        margin-right: 180px;
+        width: fit-content;
+    }
+
+    .summary-info{
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+    }
+
+    .summary-info p:first-child{
+        font-size: 35px;
+        margin-bottom: 20px;
+        font-weight: bold;
+    }
+    .summary-info p{
+        font-size: 23px;
+        font-weight:lighter;
+    }
+
+    .summary-detail{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .summary-detail label{
+        font-size:23px;
+        margin-right: 75px;
+    }

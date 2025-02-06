@@ -50,28 +50,45 @@
 
     }
 
-    /* summary section */
-    .summary-container{
-        
-        margin-right: 300px;
-        width: 200px;
+     /* summary section */
+     .summary-container{
+        margin-right: 100px;
+        width: fit-content;
     }
 
     .summary-info{
-        margin-bottom: 10px;
         font-family: Arial, Helvetica, sans-serif;
         font-weight: bold;
     }
 
     .summary-info p:first-child{
-        font-size: 25px;
+        font-size: 35px;
+        margin-bottom: 20px;
+        font-weight: bold;
+    }
+    .summary-info p{
+        font-size: 23px;
+        font-weight:lighter;
+    }
+
+    .summary-detail{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .summary-detail label{
+        font-size:23px;
+        margin-right: 75px;
     }
 
     .purchase-button-container{
+        margin-top: 30px;
     }
     
     .purchase-button {
         width: 100%;
+        font-size: 22px;
         padding: 12px;
         background-color: black;
         color: white;
