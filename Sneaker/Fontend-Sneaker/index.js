@@ -25,12 +25,19 @@ const signupRoutes = require('./routes/signup');
 app.engine('handlebars', engine({
     layoutsDir: join(_dirname, 'views/layouts'),
     defaultLayout: 'main',
-    extname: 'handlebars.'
+    extname: '.handlebars'
 }));
 app.set('view engine', 'handlebars');
 app.set('views', './views');
 app.get('/', (req, res) => {
     res.render('homepage/homepage');
+    res.render('cart/cart');
+    res.render('shipment_detail/shipmentDetail')
+});
+app.get('/cart', (req, res) => {
+    res.render('cart/cart');
+});
+app.get('/ship-detail', (req, res) => {
     res.render('cart/cart');
 });
 

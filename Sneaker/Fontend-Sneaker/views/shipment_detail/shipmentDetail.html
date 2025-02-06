@@ -15,14 +15,19 @@
     
     <!-- go back button -->
      <div id="goBackBtn">
-        <button class="fa-solid fa-chevron-left"></button>
+        <button class="fa-solid fa-chevron-left">
+            
+        </button>
+        <p id="backBtnText">
+            Continue Shopping
+        </p>
      </div>
     
 
      <!-- content section -->
      <div class="main-container">
-        <form>
-        <h1>Shipment Details</h1>
+        <form class="form">
+        <h1 class="title">Shipment Details</h1>
         <div class="form-group">
             <div class="input">
                 <label for="full-name">Full Name</label>
@@ -39,23 +44,26 @@
                 <input type="text" id="phone" placeholder="+84 0000 0000">
             </div>
             
+        <div id="city-district-container">
+            <div class="dropdown">
+                <label for="city">City</label>
+                <select id="city" >
+                    <option>Ha Noi</option>
+                    <option>Ho Chi Minh</option>
+                    <option>Da Nang</option>
+                </select>
+            </div>
 
             <div class="dropdown">
-            <label for="city">City</label>
-            <select id="city" >
-                <option>Ha Noi</option>
-                <option>Ho Chi Minh</option>
-                <option>Da Nang</option>
-            </select>
-
-
+                <label for="district">District</label>
+                <select id="district">
+                    <option>District</option>
+                    <option>District</option>
+                    <option>District</option>
+                </select>
             </div>
-            <label for="district">District</label>
-            <select id="district">
-                <option>District</option>
-                <option>District</option>
-                <option>District</option>
-            </select>
+        </div>
+            
             
             <div class="input">
                 <label for="address">Address</label>
