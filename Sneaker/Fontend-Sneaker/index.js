@@ -31,14 +31,15 @@ app.set('view engine', 'handlebars');
 app.set('views', './views');
 app.get('/', (req, res) => {
     res.render('homepage/homepage');
-    res.render('cart/cart');
-    res.render('shipment_detail/shipmentDetail')
 });
 app.get('/cart', (req, res) => {
     res.render('cart/cart');
 });
-app.get('/ship-detail', (req, res) => {
-    res.render('cart/cart');
+app.get('/shipment', (req, res) => {
+    res.render('shipment_detail/shipmentDetail')
+});
+app.get('/payment', (req, res) => {
+    res.render('payment_method/paymentMethod')
 });
 
 app.use('/adminLogin', adminLoginRoutes);
