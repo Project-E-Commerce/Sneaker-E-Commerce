@@ -30,15 +30,42 @@
             <p>Payment Method</p>
             <p>Choose a payment option</p>
             <div class="radio-btn">
-                <input type="radio" id="cash" name="method" value="cash">
+                <input type="radio" id="cash" name="method" value="cash" CHECKED>
                 <label for="cash">Cash on delivery. </label>
             </div>
-            
+
             <div class="radio-btn">
                 <input type="radio" id="online" name="method" value="online">
                 <label for="online">Online payment method. </label>
             </div>
-            
+
+            <!-- online payment method detail -->
+            <div class="online-payment-detail hidden">
+                <div>
+                    <p>The online method images go here</p>
+                </div>
+
+                <div>
+                    <div class="input">
+                        <label for="cardNumber">Card Number</label>
+                        <input type="text" id="cardNumber" placeholder="Number" required>
+                    </div>
+                    <div class="input">
+                        <label for="expiredDate">Expired Date</label>
+                        <input type="date" id="expiredDate" placeholder="YYYY/MM/DD" required>
+                    </div>
+                    <div class="input">
+                        <label for="nameOnCard">Name On Card</label>
+                        <input type="text" id="nameOnCard" placeholder="Name" required>
+                    </div>
+                    <div class="input">
+                        <label for="cvcAndCVV">CVC/CVV</label>
+                        <input type="text" id="cardNumber" placeholder="CVC/CVV" required>
+                    </div>
+
+                </div>
+            </div>
+
         </div>
 
         <!-- summary section -->
@@ -61,8 +88,31 @@
                     <p id="totalValue">Total value goes here</p>
                 </div>
             </div>
+            <div class="confirm-button-container">
+                <button class="confirm-button">Confirm Payment</button>
+            </div>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            const onlinePaymentDetails = document.querySelector('.online-payment-detail');
+            const onlinePaymentRadio = document.getElementById('online');
+            const cashPaymentRadio = document.getElementById('cash');
+
+            onlinePaymentRadio.addEventListener('change', function(){
+                if(this.checked){
+                    onlinePaymentDetails.classList.remove('hidden');
+                }
+            });
+            
+            cashPaymentRadio.addEventListener('change', function(){
+                if(this.checked){
+                    onlinePaymentDetails.classList.add('hidden');
+                }
+            });
+        });
+    </script>
+
 </body>
 
 </html>
