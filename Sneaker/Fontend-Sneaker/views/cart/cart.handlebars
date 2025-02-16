@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href=
+            "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <!-- <link rel="stylesheet" href=
+            "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"> -->
+    <title>Cart</title>
+
+</head>
+<body>
+    <p>Cart</p>
+    <div class="main-container">
+
+        <!-- product section -->
+         <div class="product-section">
+            <!--popup modal-->
+            <div class="modal-container">
+                <div class="modal-text">
+                    <div class="modal-title">
+                        <p>FREE DELIVERY</p>
+                    </div>
+                    <div class="modal-content">
+                        <p>Applies to orders of 5.000.000₫ or more.</p>
+                    </div>
+                </div>
+
+                <!-- close button -->
+                <div class="close-button">
+                    <button id="closeButton" class="fa-solid fa-x"></button>
+                </div>
+            </div>
+
+
+            <!-- product list -->
+            <div class="product-list-container">
+                <!-- <div class="category"></div> -->
+                <p>product list goes here</p>
+            </div>
+        </div>
+        
+        <!-- summary section -->
+        <div class="summary-container">
+            <div class="summary-info">
+            <p>Summary</p>
+
+            <div class="summary-detail">
+                <label for="subtotalValue">Subtotal</label>
+                <p id="subtotalValue">Subtotal value goes here</p>
+            </div>
+
+            <div class="summary-detail">
+                <label for="priceValue">Shipping Price</label>
+                <p id="priceValue">Price value goes here</p>
+            </div>
+
+            <div class="summary-detail">
+                <label for="totalValue">Total</label>
+                <p id="totalValue">Total value goes here</p>
+            </div>
+        </div>
+
+            <div class="purchase-button-container">
+                <button class="purchase-button">Purchase</button>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
