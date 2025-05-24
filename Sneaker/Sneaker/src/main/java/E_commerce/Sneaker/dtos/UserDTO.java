@@ -29,6 +29,4 @@ public class UserDTO {
     private String address;
     private boolean gender;
     List<String> roles;
-
-
 }

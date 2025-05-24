@@ -34,7 +34,6 @@ public class SecurityCfg {
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception{
-
         httpSecurity
                 //let everyone access homepage
                 .authorizeHttpRequests(req ->

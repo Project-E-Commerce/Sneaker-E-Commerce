@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-12-11T05:38:02+0700",
+    date = "2025-05-24T14:50:38+0700",
     comments = "version: 1.6.3, compiler: javac, environment: Java 21.0.2 (Oracle Corporation)"
 )
 @Component
@@ -20,17 +20,17 @@ public class UserMapperImpl implements UserMapper {
             return null;
         }
 
-        User user = new User();
+        User.UserBuilder user = User.builder();
 
-        user.setUsername( request.getUsername() );
-        user.setPassword( request.getPassword() );
-        user.setEmail( request.getEmail() );
-        user.setCreated_at( request.getCreated_at() );
-        user.setPhone( request.getPhone() );
-        user.setAddress( request.getAddress() );
-        user.setGender( request.isGender() );
+        user.username( request.getUsername() );
+        user.password( request.getPassword() );
+        user.email( request.getEmail() );
+        user.created_at( request.getCreated_at() );
+        user.phone( request.getPhone() );
+        user.address( request.getAddress() );
+        user.gender( request.isGender() );
 
-        return user;
+        return user.build();
     }
 
     @Override
@@ -43,7 +43,6 @@ public class UserMapperImpl implements UserMapper {
 
         userResponseDTO.setUserId( user.getUserId() );
         userResponseDTO.setUsername( user.getUsername() );
-        userResponseDTO.setPassword( user.getPassword() );
         userResponseDTO.setEmail( user.getEmail() );
         userResponseDTO.setCreated_at( user.getCreated_at() );
         userResponseDTO.setPhone( user.getPhone() );

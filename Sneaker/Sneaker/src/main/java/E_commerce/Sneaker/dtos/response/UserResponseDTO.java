@@ -13,11 +13,10 @@ import java.util.Set;
 public class UserResponseDTO {
     private Long userId;
     private String username;
-//    private String password;
     private String email;
     private Date created_at;
     private String phone;
     private String address;
     private boolean gender;
-    Set<RoleResponse> roles;
+    Set<String> roles;
 }
