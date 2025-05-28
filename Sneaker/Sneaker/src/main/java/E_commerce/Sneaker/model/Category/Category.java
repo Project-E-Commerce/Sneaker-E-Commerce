@@ -1,5 +1,6 @@
 package E_commerce.Sneaker.model.Category;
 
+import E_commerce.Sneaker.model.Product.Product;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,37 +10,35 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.Date;
+import java.util.List;
 
-@NoArgsConstructor
-@AllArgsConstructor
+@Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "category")
-@Entity
 public class Category {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "category_id")
-    private Long category_id;
+    private Long categoryId;
 
-    @Column(name = "category_code")
-    private String category_code;
+    private String categoryCode;
 
-    @Column(name = "category_name")
-    private String category_name;
+    private String categoryName;
 
-    @Column(name = "status")
     private int status;
 
-    @Column(name = "created_at")
     @CreationTimestamp
-    private Date created_at;
+    private Date createdAt;
 
-    @Column(name = "update_at")
     @UpdateTimestamp
-    private Date update_at;
+    private Date updatedAt;
 
-    @Column(name = "deleted_at")
-    @UpdateTimestamp
-    private Date deleted_at;
+    private Date deletedAt;
+
+    @OneToMany(mappedBy = "category")
+    private List<Product> products;
 }
+

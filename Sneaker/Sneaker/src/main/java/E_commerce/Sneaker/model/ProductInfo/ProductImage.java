@@ -1,24 +1,27 @@
 package E_commerce.Sneaker.model.ProductInfo;
 
+import E_commerce.Sneaker.model.Product.Product;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@NoArgsConstructor
-@AllArgsConstructor
+@Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "product_image")
-@Entity
 public class ProductImage {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "product_image_id")
-    private Long product_image_id;
-    @Column(name = "product_id")
-    private Long product_id;
-    @Column(name = "image")
+    private Long productImageId;
+
     private String image;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
 }

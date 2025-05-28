@@ -1,6 +1,7 @@
 package E_commerce.Sneaker.model.Order;
 
 import E_commerce.Sneaker.model.Product.Product;
+import E_commerce.Sneaker.model.User.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,54 +14,58 @@ import java.util.Date;
 import java.util.List;
 
 
-@NoArgsConstructor
-@AllArgsConstructor
+@Entity
 @Getter
 @Setter
-@Entity
-@Table(name="order")
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "`order`") // dùng ` để tránh trùng từ khóa SQL
 public class Order {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="order_id", nullable = false)
-    private Long order_id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long orderId;
+
     private String name;
-    @Column(name = "address")
+
     private String address;
+
     @ManyToMany
     @JoinTable(
-            name = "order",
+            name = "order_product",
             joinColumns = @JoinColumn(name = "order_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id")
     )
-    private List<Product> product;
-    @Column(name = "user_id")
-    private Long userId;
-    @Column(name = "phone")
+    private List<Product> products;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     private String phone;
-    @Column(name = "number", nullable = false)
+
     private int number;
-    @Column(name = "address_from")
-    private String address_from;
-    @Column(name = "address_to")
-    private String address_to;
-    @Column(name = "created_at")
+
+    private String addressFrom;
+
+    private String addressTo;
+
     @CreationTimestamp
-    private Date created_at;
+    private Date createdAt;
 
-    @Column(name = "update_at")
     @UpdateTimestamp
-    private Date update_at;
+    private Date updatedAt;
 
-    @Column(name = "deleted_at")
-    @UpdateTimestamp
-    private Date deleted_at;
+    private Date deletedAt;
 
     @Override
     public String toString() {
-        return  ", user_Id=" + userId +
-                ", address='" + address + '\'' +
+        return "Order{" +
+                "orderId=" + orderId +
+                ", userId=" + (user != null ? user.getUserId() : null) +
                 ", name='" + name + '\'' +
-                ", phone='" + phone + '\'';
+                ", phone='" + phone + '\'' +
+                ", address='" + address + '\'' +
+                '}';
     }
 }

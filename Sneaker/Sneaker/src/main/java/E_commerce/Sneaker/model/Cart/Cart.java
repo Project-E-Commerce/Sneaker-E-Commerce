@@ -3,14 +3,17 @@ package E_commerce.Sneaker.model.Cart;
 import E_commerce.Sneaker.model.Product.Product;
 import E_commerce.Sneaker.model.User.User;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.Date;
 
 @Entity
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "cart")
 public class Cart {
 
@@ -26,10 +29,8 @@ public class Cart {
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
-    @Column(nullable = false)
     private int quantity;
 
-    @Column(nullable = false)
     private double totalPrice;
 
     @CreationTimestamp
