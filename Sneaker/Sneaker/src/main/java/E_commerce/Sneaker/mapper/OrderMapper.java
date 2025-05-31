@@ -9,7 +9,11 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface OrderMapper {
-    @Mapping(target = "orders", ignore = true)
-    User toOrder(OrderDTO request);
+    @Mapping(target="user", source = "user_name", ignore = true)
+    Order toOrder(OrderDTO request);
 
+    default User mapUserFromName(String username){
+        if(username == null) return null;
+        return User.builder().username(username).guitbuild();
+    }
 }
