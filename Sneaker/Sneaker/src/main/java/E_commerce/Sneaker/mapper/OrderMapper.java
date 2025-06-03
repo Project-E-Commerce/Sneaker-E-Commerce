@@ -14,6 +14,6 @@ public interface OrderMapper {
 
     default User mapUserFromName(String username){
         if(username == null) return null;
-        return User.builder().username(username).guitbuild();
+        return User.builder().username(username).build();
     }
 }
