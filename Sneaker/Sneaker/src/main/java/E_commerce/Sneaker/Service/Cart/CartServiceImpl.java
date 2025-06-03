@@ -26,14 +26,14 @@ public class CartServiceImpl implements CartService{
         List<CartDTO> cartDTOs = new ArrayList<>();
 
         for (Cart cart : carts) {
-            Product product = productService.findById(cart.getProduct_id());
+            Product product = productService.findById(cart.getProduct().getProductId());
             CartDTO cartDTO = new CartDTO();
-            cartDTO.setCart_id(cart.getCart_id());
-            cartDTO.setUser_id(cart.getUser_id());
-            cartDTO.setProduct_id(cart.getProduct_id());
+            cartDTO.setCart_id(cart.getCartId());
+            cartDTO.setUser_id(cart.getUser().getUserId());
+            cartDTO.setProduct_id(cart.getProduct().getProductId());
             cartDTO.setQuantity(cart.getQuantity());
-            cartDTO.setTotal_price(cart.getTotal_price());
-            cartDTO.setProduct_name(product.getProduct_name());
+            cartDTO.setTotal_price(cart.getTotalPrice());
+            cartDTO.setProduct_name(product.getProductName());
             cartDTO.setProduct_price(product.getPrice());
             cartDTOs.add(cartDTO);
         }
@@ -43,8 +43,8 @@ public class CartServiceImpl implements CartService{
 
     @Override
     public Cart addToCart(Cart cart) {
-        cart.setCreated_at(new Date());
-        cart.setUpdated_at(new Date());
+        cart.setCreatedAt(new Date());
+        cart.setUpdatedAt(new Date());
         return cartRepository.save(cart);
     }
 
@@ -59,8 +59,8 @@ public class CartServiceImpl implements CartService{
 
     @Override
     public Cart updateCart(Cart cart) {
-        if (cartRepository.existsById(cart.getCart_id())) {
-            cart.setUpdated_at(new Date());
+        if (cartRepository.existsById(cart.getCartId())) {
+            cart.setUpdatedAt(new Date());
             return cartRepository.save(cart);
         }
         return null;

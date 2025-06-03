@@ -34,16 +34,16 @@ public class ProductController {
             List<ProductDTO> productDTOs = new ArrayList<>();
 
             for (Product product : products) {
-                Category category = categoryService.findById(product.getCategory_id());
+                Category category = categoryService.findById(product.getCategory().getCategoryId());
                 ProductDTO productDTO = new ProductDTO();
-                productDTO.setProduct_id(product.getProduct_id());
+                productDTO.setProductId(product.getProductId());
                 productDTO.setPrice(product.getPrice());
-                productDTO.setCategory_id(product.getCategory_id());
-                productDTO.setCreated_at(product.getCreated_at());
-                productDTO.setDeleted_at(product.getDeleted_at());
-                productDTO.setProduct_name(product.getProduct_name());
-                productDTO.setUpdate_at(product.getUpdate_at());
-                productDTO.setCategory_name(category != null ? category.getCategory_name() : null);
+//                productDTO.setCategory_id(product.getCategory_id());
+                productDTO.setCreatedAt(product.getCreatedAt());
+                productDTO.setDeletedAt(product.getDeletedAt());
+                productDTO.setProductName(product.getProductName());
+                productDTO.setUpdatedAt(product.getUpdatedAt());
+                productDTO.setCategory_name(category != null ? category.getCategoryName() : null);
                 productDTO.setSize(product.getSize());
                 productDTOs.add(productDTO);
             }
@@ -59,11 +59,11 @@ public class ProductController {
     @PostMapping
     public ResponseEntity<Product> save(@RequestBody Product product) {
         try {
-            if (product.getProduct_id() > 0) {
-                product.setUpdate_at(new Date());
+            if (product.getProductId() > 0) {
+                product.setUpdatedAt(new Date());
                 return ResponseEntity.ok(productService.updateOne(product));
             } else {
-                product.setCreated_at(new Date());
+                product.setCreatedAt(new Date());
                 return ResponseEntity.ok(productService.insertOne(product));
             }
         } catch (Exception e) {
@@ -91,16 +91,16 @@ public class ProductController {
             List<ProductDTO> productDTOs = new ArrayList<>();
 
             for (Product product : products) {
-                Category category = categoryService.findById(product.getCategory_id());
+                Category category = categoryService.findById(product.getCategory().getCategoryId());
                 ProductDTO productDTO = new ProductDTO();
-                productDTO.setProduct_id(product.getProduct_id());
+                productDTO.setProductId(product.getProductId());
                 productDTO.setPrice(product.getPrice());
-                productDTO.setCategory_id(product.getCategory_id());
-                productDTO.setCreated_at(product.getCreated_at());
-                productDTO.setDeleted_at(product.getDeleted_at());
-                productDTO.setProduct_name(product.getProduct_name());
-                productDTO.setUpdate_at(product.getUpdate_at());
-                productDTO.setCategory_name(category != null ? category.getCategory_name() : null);
+//                productDTO.setCategory_id(product.getCategory_id());
+                productDTO.setCreatedAt(product.getCreatedAt());
+                productDTO.setDeletedAt(product.getDeletedAt());
+                productDTO.setProductName(product.getProductName());
+                productDTO.setUpdatedAt(product.getUpdatedAt());
+                productDTO.setCategory_name(category != null ? category.getCategoryName() : null);
                 productDTO.setSize(product.getSize());
                 productDTOs.add(productDTO);
             }
@@ -108,8 +108,8 @@ public class ProductController {
             List<ProductDTO> filteredProducts = new ArrayList<>();
 
             for (ProductDTO productDTO : productDTOs) {
-                if (productDTO.getCategory_id() != null &&
-                        productDTO.getCategory_id().equals(productFilterDTO.getCategory_id())) {
+                if (productDTO.getCategory().getCategoryId() != null &&
+                        productDTO.getCategory().getCategoryId().equals(productFilterDTO.getCategory_id())) {
                     filteredProducts.add(productDTO);
                 }
             }
@@ -119,11 +119,11 @@ public class ProductController {
 
                 for (ProductColor productColor : productColors) {
                     if (productFilterDTO.getList_color().contains(productColor.getColor())) {
-                        filteredColorIds.add(productColor.getProduct_id());
+                        filteredColorIds.add(productColor.getProduct().getProductId());
                     }
                 }
 
-                filteredProducts.removeIf(productDTO -> !filteredColorIds.contains(productDTO.getProduct_id()));
+                filteredProducts.removeIf(productDTO -> !filteredColorIds.contains(productDTO.getProductId()));
             }
 
             if (productFilterDTO.getList_size() != null && !productFilterDTO.getList_size().isEmpty()) {

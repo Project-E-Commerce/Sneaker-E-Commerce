@@ -30,11 +30,11 @@ public class CategoryController {
     @PostMapping
     public ResponseEntity<Category> save(@RequestBody Category category) {
         try {
-            if (category.getCategory_id() > 0) {
-                category.setUpdate_at(new Date());
+            if (category.getCategoryId() > 0) {
+                category.setUpdatedAt(new Date());
                 category = categoryService.updateOne(category);
             } else {
-                category.setCreated_at(new Date());
+                category.setCreatedAt(new Date());
                 category = categoryService.insertOne(category);
             }
             return ResponseEntity.ok(category);

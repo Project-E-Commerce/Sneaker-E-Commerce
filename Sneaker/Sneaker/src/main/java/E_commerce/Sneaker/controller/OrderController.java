@@ -32,16 +32,16 @@ public class OrderController {
             List<Order> list = orderRepository.findAll();
             var listDTO = new ArrayList<OrderDTO>();
             for (Order o : list) {
-                UserResponseDTO user = userService.getUser(o.getUserId());
+                UserResponseDTO user = userService.getUser(o.getUser().getUserId());
                 OrderDTO orderDTO = new OrderDTO();
-                orderDTO.setOrder_id(o.getOrder_id());
+                orderDTO.setOrderId(o.getOrderId());
                 orderDTO.setName(o.getName());
                 orderDTO.setAddress(o.getAddress());
                 orderDTO.setPhone(o.getPhone());
-                orderDTO.setAddress_from(o.getAddress_from());
-                orderDTO.setAddress_to(o.getAddress_to());
-                orderDTO.setCreated_at(o.getCreated_at());
-                orderDTO.setUpdate_at(o.getUpdate_at());
+                orderDTO.setAddressFrom(o.getAddressFrom());
+                orderDTO.setAddressTo(o.getAddressTo());
+                orderDTO.setCreatedAt(o.getCreatedAt());
+                orderDTO.setUpdatedAt(o.getUpdatedAt());
                 listDTO.add(orderDTO);
             }
             return ResponseEntity.ok(listDTO);
@@ -55,14 +55,14 @@ public class OrderController {
             Optional<Order> optionalOrder = orderRepository.findById(id);
             if (optionalOrder.isPresent()) {
                 Order order = optionalOrder.get();
-                UserResponseDTO user = userService.getUser(order.getUserId());
+                UserResponseDTO user = userService.getUser(order.getUser().getUserId());
                 OrderDTO orderDTO = new OrderDTO();
-                orderDTO.setOrder_id(order.getOrder_id());
+                orderDTO.setOrderId(order.getOrderId());
                 orderDTO.setName(order.getName());
                 orderDTO.setAddress(order.getAddress());
                 orderDTO.setPhone(order.getPhone());
-                orderDTO.setCreated_at(order.getCreated_at());
-                orderDTO.setUpdate_at(order.getUpdate_at());
+                orderDTO.setCreatedAt(order.getCreatedAt());
+                orderDTO.setUpdatedAt(order.getUpdatedAt());
 
                 return ResponseEntity.ok(orderDTO);
             } else {
@@ -93,8 +93,8 @@ public class OrderController {
                 existingOrder.setAddress(updatedOrder.getAddress());
                 existingOrder.setPhone(updatedOrder.getPhone());
                 existingOrder.setNumber(updatedOrder.getNumber());
-                existingOrder.setAddress_from(updatedOrder.getAddress_from());
-                existingOrder.setAddress_to(updatedOrder.getAddress_to());
+                existingOrder.setAddressFrom(updatedOrder.getAddressFrom());
+                existingOrder.setAddressTo(updatedOrder.getAddressTo());
 
                 Order savedOrder = orderRepository.save(existingOrder);
                 return ResponseEntity.ok(savedOrder);
