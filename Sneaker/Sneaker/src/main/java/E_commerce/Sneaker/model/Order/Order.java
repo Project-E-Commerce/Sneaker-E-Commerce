@@ -19,7 +19,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "`order`") // dùng ` để tránh trùng từ khóa SQL
+@Table(name = "orders") // dùng ` để tránh trùng từ khóa SQL
 public class Order {
 
     @Id
