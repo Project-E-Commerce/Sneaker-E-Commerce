@@ -24,7 +24,7 @@ public class UserController {
     private UserService userService;
 
 
-    @PostMapping
+    @PostMapping("/create")
     ApiResponse<User> createUser(@RequestBody @Valid UserDTO request){
         ApiResponse<User> apiResponse = new ApiResponse<>();
 

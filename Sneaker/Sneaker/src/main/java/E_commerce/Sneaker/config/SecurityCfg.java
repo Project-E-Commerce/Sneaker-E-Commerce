@@ -23,7 +23,7 @@ public class SecurityCfg {
 
     private final String[] PUBLIC_ENDPOINTS = {
             "/", "/auth/user/login", "/auth/user/introspect", "/auth/user/logout", "/auth/user/refresh",
-            "auth/ADM/login", "/auth/ADM/introspect", "/auth/ADM/logout", "/auth/ADM/refresh"
+            "auth/ADM/login", "/auth/ADM/introspect", "/auth/ADM/logout", "/auth/ADM/refresh", "users/create"
     } ;
 
     /*@Value("${jwt.signerKey}")
@@ -40,7 +40,7 @@ public class SecurityCfg {
                         req
                         .requestMatchers(PUBLIC_ENDPOINTS).permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/user/**").hasRole("USER")
+                        .requestMatchers("/users/**").hasRole("USER")
                         .anyRequest().authenticated()
                 )
                 /*.formLogin(formLogin -> formLogin
