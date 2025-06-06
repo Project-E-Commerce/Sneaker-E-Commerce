@@ -22,7 +22,7 @@ public class CartServiceImpl implements CartService{
 
     @Override
     public List<CartDTO> findByUserId(Long userId) {
-        List<Cart> carts = cartRepository.findByUserId(userId);
+        List<Cart> carts = cartRepository.findByUserUserId(userId);
         List<CartDTO> cartDTOs = new ArrayList<>();
 
         for (Cart cart : carts) {
