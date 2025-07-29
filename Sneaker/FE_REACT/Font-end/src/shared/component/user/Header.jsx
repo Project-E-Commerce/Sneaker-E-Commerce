@@ -5,7 +5,7 @@ import { faHeart } from '@fortawesome/free-regular-svg-icons';
 
 const UserHeader = () => {
     return (
-        <header className="bg-white w-full flex items-center justify-between pt-[2.5rem] pb-4  px-20">
+        <header className="bg-white w-full flex items-center justify-between border-b-1 border-[#c2c2c2] pt-[2.5rem] pb-4 px-20">
             <div className='logoNameCtn flex items-center gap-2'>
                 <img src="logo" alt="logo" className=' border-1 border-black' />
                 <Link to='' className='text-black text-2xl font-bold'>BuffalowSneaker</Link>
