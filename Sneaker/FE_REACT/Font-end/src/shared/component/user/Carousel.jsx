@@ -13,13 +13,14 @@ const Carousel = () => {
         return () => clearInterval(interval)
     })
     return (
-        <div className="carouselCtn bg-[#f1f1f1] flex flex-nowrap overflow-hidden">
+        <div className="carouselCtn bg-[#20851c] flex flex-nowrap overflow-hidden mr-20 mt-10">
             {data.map((item, index) => {
-                return <h1 className='carouselItem h-[20rem] min-w-[100%] w-[100%] flex items-center justify-center transition-all duration-1000 [transition-timing-function:cubic-bezier(0.39,0.575,0.565,1)]'
+                return <h1 className='carouselItem h-[10rem] min-w-[100%] w-[100%] flex items-center justify-center transition-all duration-1000 [transition-timing-function:cubic-bezier(0.39,0.575,0.565,1)]'
                     style={{ transform: `translate(-${currentIndex * 100}%)` }}
                     key={index}>{item}</h1>
             })}
         </div>
+        
     );
 }
 export default Carousel;

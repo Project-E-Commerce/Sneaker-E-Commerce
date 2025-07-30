@@ -74,7 +74,7 @@ const UserSidebar = () => {
          return openCategoryIds.includes(categoryId);
     };
     return (
-        <aside className="shrink-0 flex flex-col bg-white w-42 border-r-1 border-[#c2c2c2]">
+        <aside className="shrink-0 flex flex-col bg-white w-42 border-r-1 border-[#c2c2c2] ml-20 pt-9">
 
             {/* menu content */}
             <div className="menuCtn flex ">
