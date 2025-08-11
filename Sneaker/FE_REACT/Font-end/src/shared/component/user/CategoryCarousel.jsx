@@ -28,9 +28,9 @@ const CategoryCarousel = () => {
     return (
         <>
             <SectionLabel label={'Categories'} secName={'Browse By Category'}>
-                <PrevAndNext onNext={''} onPrev={''}/>
+                <PrevAndNext onNext={handleNext} onPrev={handlePrev}/>
             </SectionLabel>
-            <div className="carouselCtn flex mx-20 mt-10 relative justify-between pb-[3rem] border-b-10 border-[#c4c4c4]">
+            <div className="carouselCtn flex mt-10 overflow-hidden relative justify-between pb-[3rem] border-b-1 border-[#c4c4c4]">
                 {data.map((item, id) =>
                 (
                     <Link key={id} to={item.link}
