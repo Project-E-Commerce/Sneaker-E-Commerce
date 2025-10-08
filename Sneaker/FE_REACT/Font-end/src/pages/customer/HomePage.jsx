@@ -21,7 +21,7 @@ const UserHomePage = () => {
             <div className="midCarou ml-20">
                 <Carousel/>
             </div>
-            <div className="allProducts">
+            <div className="allProductsSec">
                 <ProductsList label={'Our Products'} secName={'Explore Our Products'} itemNum={10} isDisabledTop={true} isDisabledBtm={false}/>
             </div>
         </div>

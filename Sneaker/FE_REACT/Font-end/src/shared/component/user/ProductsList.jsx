@@ -13,6 +13,9 @@ const ProductsList = ({ label, secName, itemNum, isDisabledTop, isDisabledBtm })
         { id: 5, prodName: 'Shoes 1', img: 'https://assets.bwbx.io/images/users/iqjWHBFdfxIU/i3Yp1mXpDIMA/v2/1200x836.webp', price: '$100' },
         { id: 5, prodName: 'Shoes 1', img: 'https://assets.bwbx.io/images/users/iqjWHBFdfxIU/i3Yp1mXpDIMA/v2/1200x836.webp', price: '$100' },
     ];
+
+    const displayData = itemNum ? data.slice(0, itemNum) : data;
+    
     const [currentIndex, setCurrentIndex] = useState(0);
 
     const handlePrev = () => {
